@@ -33,7 +33,7 @@ function createMap(Resorts) {
 let resortsGeoJSON = {
   "type": "FeatureCollection",
   "features": [ ]
-};
+}
 
 Papa.parse('.../Resources/Processed/location2.csv', {
                 header: true,
@@ -49,7 +49,7 @@ Papa.parse('.../Resources/Processed/location2.csv', {
                               "coordinates": [Resort.Longitude, Resort.Latitude]
                             },
                             "properties": {
-                              "Location": Resort.Location
+                              "Location": [Resort.Country, Resort.State/Province]
                             }
                           }
                           marker = L.geoJSON(feature).addTo(map)
