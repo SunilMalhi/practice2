@@ -1,37 +1,41 @@
-var map = L.map('map', {
-  center: [46.57, 2.69], // EDIT latitude, longitude to re-center map
-  zoom: 1,  // EDIT from 1 to 18 -- decrease to zoom out, increase to zoom in
-  scrollWheelZoom: false,
-  tap: false
-});
+function createMap(Resorts) {
 
-/* Control panel to display map layers */
-var controlLayers = L.control.layers( null, null, {
-  position: "topright",
-  collapsed: false
-}).addTo(map);
+  // Create the tile layer that will be the background of our map.
+  let streetmap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  });
 
-// display Carto basemap tiles with light features and labels
-var light = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'
-}).addTo(map); // EDIT - insert or remove ".addTo(map)" before last semicolon to display by default
-controlLayers.addBaseLayer(light, 'Carto Light basemap');
 
-/* Stamen colored terrain basemap tiles with labels */
-var terrain = L.tileLayer('https://stamen-tiles.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png', {
-  attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.'
-}); // EDIT - insert or remove ".addTo(map)" before last semicolon to display by default
-controlLayers.addBaseLayer(terrain, 'Stamen Terrain basemap');
+  // Create a baseMaps object to hold the streetmap layer.
+  let baseMaps = {
+    "Street Map": streetmap
+  };
 
-// see more basemap options at https://leaflet-extras.github.io/leaflet-providers/preview/
+  // Create an overlayMaps object to hold the Resorts layer.
+  let overlayMaps = {
+    "Resorts": Resorts
+  };
+
+  // Create the map object with options.
+  let map = L.map("map", {
+    center: [40.73, -74.0059],
+    zoom: 12,
+    layers: [streetmap, Resorts]
+  });
+
+  // Create a layer control, and pass it baseMaps and overlayMaps. Add the layer control to the map.
+  L.control.layers(baseMaps, overlayMaps, {
+    collapsed: false
+  }).addTo(map);
+}
 
 // Read markers data from data.csv
-resortsGeoJSON = {
+let resortsGeoJSON = {
   "type": "FeatureCollection",
   "features": [ ]
 };
 
-var lyrHouses = Papa.parse('../Resources/Processed/location2.csv', {
+Papa.parse('.../Resources/Processed/location2.csv', {
                 header: true,
                 download: true,
                 dynamicTyping: true,
@@ -51,6 +55,7 @@ var lyrHouses = Papa.parse('../Resources/Processed/location2.csv', {
                           marker = L.geoJSON(feature).addTo(map)
                           // Create geojson of all markers push feature to the declared houses geoJSON
                           resortsGeoJSON.features.push(feature)
+                          console.log(results)
                     })
                 }
             });
