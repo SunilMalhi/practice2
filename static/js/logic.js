@@ -30,32 +30,16 @@ function createMap(Resorts) {
 }
 
 // Read markers data from data.csv
-let resortsGeoJSON = {
-  "type": "FeatureCollection",
-  "features": [ ]
+function loadCSVData() {
+  d3.csv(".../Resources/Processed/locations2.csv", function(result) {
+    result.forEach(function (Resort) {
+      addMarker(Resort);
+    });
+  });
 }
 
-Papa.parse('.../Resources/Processed/location2.csv', {
-                header: true,
-                download: true,
-                dynamicTyping: true,
-                skipEmptyLines: true,
-                complete: function(results) {
-                    results.data.forEach((Resort) => {
-                        feature = {
-                            "type": "Feature",
-                            "geometry": {
-                              "type": "Point",
-                              "coordinates": [Resort.Longitude, Resort.Latitude]
-                            },
-                            "properties": {
-                              "Location": [Resort.Country, Resort.State/Province]
-                            }
-                          }
-                          marker = L.geoJSON(feature).addTo(map)
-                          // Create geojson of all markers push feature to the declared houses geoJSON
-                          resortsGeoJSON.features.push(feature)
-                          console.log(results)
-                    })
-                }
-            });
+function addMarker(Resort) {
+  L.marker([Resort.latitude, Resort.longitude])
+    .bindPopup([Resort.State/Province, Resort.Country])
+    .addTo(map);
+}
