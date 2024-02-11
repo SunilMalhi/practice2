@@ -26,21 +26,31 @@ controlLayers.addBaseLayer(terrain, 'Stamen Terrain basemap');
 // see more basemap options at https://leaflet-extras.github.io/leaflet-providers/preview/
 
 // Read markers data from data.csv
-$.get('../Resources/Processed/location2.csv', function(csvString) {
+resortsGeoJSON = {
+  "type": "FeatureCollection",
+  "features": [ ]
+};
 
-  // Use PapaParse to convert string to array of objects
-  var data = Papa.parse(csvString, {header: true, dynamicTyping: true}).data;
-
-  // For each row in data, create a marker and add it to the map
-  // For each row, columns `Latitude`, `Longitude`, and `Title` are required
-  for (var i in data) {
-    var row = data[i];
-
-    var marker = L.marker([row.Latitude, row.Longitude], {
-      opacity: 1
-    }).bindPopup(row.Title);
-    
-    marker.addTo(map);
-  }
-
-});
+var lyrHouses = Papa.parse('../Resources/Processed/location2.csv', {
+                header: true,
+                download: true,
+                dynamicTyping: true,
+                skipEmptyLines: true,
+                complete: function(results) {
+                    results.data.forEach((Resort) => {
+                        feature = {
+                            "type": "Feature",
+                            "geometry": {
+                              "type": "Point",
+                              "coordinates": [Resort.Longitude, Resort.Latitude]
+                            },
+                            "properties": {
+                              "Location": Resort.Location
+                            }
+                          }
+                          marker = L.geoJSON(feature).addTo(map)
+                          // Create geojson of all markers push feature to the declared houses geoJSON
+                          resortsGeoJSON.features.push(feature)
+                    })
+                }
+            });
