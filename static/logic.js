@@ -26,12 +26,12 @@ var data = Papa.parse(csvString, {header: true, dynamicTyping: true}).data;
 
   // For each row in data, create a marker and add it to the map
   // For each row, columns `Latitude`, `Longitude`, and `Title` are required
-for (var i in data) {
-  var row = data[i];
+  for (var i in data) {
+    var row = data[i];
 
-  var marker = L.marker([row.Latitude, row.Longitude], {
-    opacity: 1
-  }).bindPopup(row.Country);
+    var marker = L.marker([row.Latitude, row.Longitude], {
+      opacity: 1
+    }).bindPopup(row.Country);
       
   marker.addTo(map);
   }
