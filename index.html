@@ -64,11 +64,11 @@
     for (var i in data) {
       var row = data[i];
 
-      var marker = L.marker([row.Latitude, row.Longitude], {
-        opacity: 1
-      }).bindPopup(row.Country);
-      
-      marker.addTo(map);
+      var markers = L.markerClusterGroup();
+      var marker = L.marker([row.Latitude, row.Longitude]);
+      marker.bindPopup(row.State/Province)
+      markers.addLayer(marker);
+      map.addLayer(markers);
     }
 
   });
