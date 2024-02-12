@@ -19,10 +19,10 @@ var light = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}
 controlLayers.addBaseLayer(light, 'Carto Light basemap');
 
 // Read markers data from data.csv
-$.get('Resources/Processed/SkiData.csv', function(csvString) {
+$.get('./Resources/Processed/SkiData.csv', function(csvString) {
 
 // Use PapaParse to convert string to array of objects
-var data = Papa.parse(csvString, {header: true, dynamicTyping: true}).data;
+  var data = Papa.parse(csvString, {header: true, dynamicTyping: true}).data;
 
   // For each row in data, create a marker and add it to the map
   // For each row, columns `Latitude`, `Longitude`, and `Title` are required
