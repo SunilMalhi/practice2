@@ -1,6 +1,6 @@
 // Set up initial map center and zoom level
 var map = L.map('map', {
-  center: [41.57, -72.69], // EDIT latitude, longitude to re-center map
+  center: [48.874652, 2.3200449], // EDIT latitude, longitude to re-center map
   zoom: 9,  // EDIT from 1 to 18 -- decrease to zoom out, increase to zoom in
   scrollWheelZoom: false,
   tap: false
