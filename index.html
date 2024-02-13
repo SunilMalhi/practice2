@@ -68,14 +68,13 @@
     var data = Papa.parse(csvString, {header: true, dynamicTyping: true}).data;
     console.log(data);
 
+    var markers = L.markerClusterGroup();
     // For each row in data, create a marker and add it to the map
     for (var i in data) {
       var row = data[i];
 
-      var markers = L.markerClusterGroup();
-      var marker = L.marker([row.Latitude, row.Longitude])
-      marker.bindPopup(row.Country);
-      markers.addLayer(marker);
+      markers.addLayer(L.marker([row.Latitude, row.Longitude])
+        .bindPopup(row.Country));
       map.addLayer(markers);
     }
 
