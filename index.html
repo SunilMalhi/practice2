@@ -59,6 +59,7 @@
 
     // Use PapaParse to convert string to array of objects
     var data = Papa.parse(csvString, {header: true, dynamicTyping: true}).data;
+    console.log(data);
 
     // For each row in data, create a marker and add it to the map
     for (var i in data) {
