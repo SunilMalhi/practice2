@@ -44,7 +44,7 @@
   // Set up initial map center and zoom level
   var map = L.map('map', {
     center: [48.874652, 2.3200449],
-    zoom: 5,
+    zoom: 9,
     scrollWheelZoom: false,
     tap: false
   });
@@ -74,7 +74,7 @@
       var row = data[i];
 
       markers.addLayer(L.marker([row.Latitude, row.Longitude])
-        .bindPopup('Resort Name: ' + row.Resort_Name + '</br>' + 'State/Province: ' + row.State_Province + '</br>' + 'Country Code: ' + row.Country_Code));
+        .bindPopup('Resort Name: ' + row.Resort_Name + '</br>' + 'State/Province: ' + row.State_Province + '</br>' + 'Country: ' + row.Country));
       map.addLayer(markers);
     }
 
