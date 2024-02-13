@@ -73,8 +73,8 @@
       var row = data[i];
 
       var markers = L.markerClusterGroup();
-      var marker = L.marker([row.Latitude, row.Longitude]);
-      marker.bindPopup(row.Country)
+      var marker = L.marker([row.Latitude, row.Longitude])
+      marker.bindPopup(row.Country);
       markers.addLayer(marker);
       map.addLayer(markers);
     }
