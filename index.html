@@ -74,7 +74,7 @@
       var row = data[i];
 
       markers.addLayer(L.marker([row.Latitude, row.Longitude])
-        .bindPopup(row[`Resort ID`]));
+        .bindPopup(row['Resort ID']));
       map.addLayer(markers);
     }
 
