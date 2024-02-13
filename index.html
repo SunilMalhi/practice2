@@ -74,7 +74,7 @@
       var row = data[i];
 
       markers.addLayer(L.marker([row.Latitude, row.Longitude])
-        .bindPopup(row['Resort Name']));
+        .bindPopup(row.Resort_Name, row.State_Province, row.Country_Code));
       map.addLayer(markers);
     }
 
